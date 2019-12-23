@@ -10,17 +10,19 @@ import UIKit
 
 class HomeViewController: UIViewController, StoryboardInstantiable {
     
-    // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     
-    // MARK: Variable
     private let horizontalPadding: CGFloat = 36
     
     lazy var categories: [HomeCategory] = HomeViewController.testData
     
+    private(set) var viewModel: HomeViewModel!
+    
     // MARK: Static
-    final class func create() -> HomeViewController {
-        return HomeViewController.instantiateViewController()
+    final class func create(with viewModel: HomeViewModel) -> HomeViewController {
+        let view = HomeViewController.instantiateViewController()
+        view.viewModel = viewModel
+        return view
     }
     
     // MARK: Life Cycle
@@ -28,6 +30,8 @@ class HomeViewController: UIViewController, StoryboardInstantiable {
         super.viewDidLoad()
         setupTableView()
         setupNavigationBar()
+        
+        viewModel.viewDidLoad()
     }
     
     // MARK: Private funcs
@@ -84,6 +88,18 @@ extension HomeViewController {
             isViewableAll: true,
             colors: [0xFAFAFA, 0xF2F2F2],
             items: [
+                CategoryItem(id: "i1", title: "Dora", thumb: ""),
+                CategoryItem(id: "i2", title: "Dora", thumb: ""),
+                CategoryItem(id: "i3", title: "Dora", thumb: ""),
+                CategoryItem(id: "i4", title: "Dora", thumb: ""),
+                CategoryItem(id: "i5", title: "Dora", thumb: ""),
+                CategoryItem(id: "i6", title: "Dora", thumb: ""),
+                CategoryItem(id: "i1", title: "Dora", thumb: ""),
+                CategoryItem(id: "i2", title: "Dora", thumb: ""),
+                CategoryItem(id: "i3", title: "Dora", thumb: ""),
+                CategoryItem(id: "i4", title: "Dora", thumb: ""),
+                CategoryItem(id: "i5", title: "Dora", thumb: ""),
+                CategoryItem(id: "i6", title: "Dora", thumb: ""),
                 CategoryItem(id: "i1", title: "Dora", thumb: ""),
                 CategoryItem(id: "i2", title: "Dora", thumb: ""),
                 CategoryItem(id: "i3", title: "Dora", thumb: ""),
