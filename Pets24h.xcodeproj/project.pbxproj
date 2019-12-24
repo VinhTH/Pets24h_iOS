@@ -10,11 +10,17 @@
 		92200C3F238785AE00645070 /* CarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92200C3D238785AE00645070 /* CarouselCollectionViewCell.swift */; };
 		92200C40238785AE00645070 /* CarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92200C3E238785AE00645070 /* CarouselCollectionViewCell.xib */; };
 		92200C422387878500645070 /* UICollectionView+Pets24h.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92200C412387878500645070 /* UICollectionView+Pets24h.swift */; };
+		9226236723B1A95D00576140 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9226236623B1A95D00576140 /* Observable.swift */; };
+		9226236923B1B1C800576140 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9226236823B1B1C800576140 /* Alertable.swift */; };
+		9226236B23B1BDCC00576140 /* PosterImagesRepositoryInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9226236A23B1BDCC00576140 /* PosterImagesRepositoryInterfaces.swift */; };
+		9226236D23B1BF8400576140 /* PosterImagesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9226236C23B1BF8400576140 /* PosterImagesRepository.swift */; };
 		9241DC0423AB2F3A00EBEA87 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241DC0323AB2F3A00EBEA87 /* Endpoint.swift */; };
 		9241DC0723AB30FB00EBEA87 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241DC0623AB30FB00EBEA87 /* APIEndpoints.swift */; };
 		9241DC0923AB321900EBEA87 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241DC0823AB321900EBEA87 /* NetworkService.swift */; };
 		9241DC0B23AB540B00EBEA87 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241DC0A23AB540B00EBEA87 /* NetworkConfig.swift */; };
 		9241DC0D23AB635800EBEA87 /* AppConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9241DC0C23AB635800EBEA87 /* AppConfigurations.swift */; };
+		924A1EDF23B0B5030094CC51 /* HomeCatagoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924A1EDE23B0B5030094CC51 /* HomeCatagoryViewModel.swift */; };
+		924A1EE123B0B6C10094CC51 /* HomeMovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924A1EE023B0B6C10094CC51 /* HomeMovieViewModel.swift */; };
 		926AE29E238B7B1E009E4303 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AE29D238B7B1E009E4303 /* GradientView.swift */; };
 		926AE2A2238B8268009E4303 /* HomeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AE2A1238B8268009E4303 /* HomeCategory.swift */; };
 		926CA81723AC752A001A4C5A /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CA81623AC752A001A4C5A /* NetworkServiceTests.swift */; };
@@ -75,11 +81,17 @@
 		92200C3D238785AE00645070 /* CarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		92200C3E238785AE00645070 /* CarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCollectionViewCell.xib; sourceTree = "<group>"; };
 		92200C412387878500645070 /* UICollectionView+Pets24h.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Pets24h.swift"; sourceTree = "<group>"; };
+		9226236623B1A95D00576140 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		9226236823B1B1C800576140 /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
+		9226236A23B1BDCC00576140 /* PosterImagesRepositoryInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImagesRepositoryInterfaces.swift; sourceTree = "<group>"; };
+		9226236C23B1BF8400576140 /* PosterImagesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImagesRepository.swift; sourceTree = "<group>"; };
 		9241DC0323AB2F3A00EBEA87 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		9241DC0623AB30FB00EBEA87 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
 		9241DC0823AB321900EBEA87 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9241DC0A23AB540B00EBEA87 /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
 		9241DC0C23AB635800EBEA87 /* AppConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigurations.swift; sourceTree = "<group>"; };
+		924A1EDE23B0B5030094CC51 /* HomeCatagoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCatagoryViewModel.swift; sourceTree = "<group>"; };
+		924A1EE023B0B6C10094CC51 /* HomeMovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMovieViewModel.swift; sourceTree = "<group>"; };
 		926AE29D238B7B1E009E4303 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		926AE2A1238B8268009E4303 /* HomeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategory.swift; sourceTree = "<group>"; };
 		926CA81623AC752A001A4C5A /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
@@ -222,6 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				92737DAE23A8C46200E07726 /* HomeViewModel.swift */,
+				924A1EDE23B0B5030094CC51 /* HomeCatagoryViewModel.swift */,
+				924A1EE023B0B6C10094CC51 /* HomeMovieViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -257,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				927E024223AA103D009DCB3A /* MoviesRepositoryInterfaces.swift */,
+				9226236A23B1BDCC00576140 /* PosterImagesRepositoryInterfaces.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -274,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				927E024623AA112B009DCB3A /* MoviesRepository.swift */,
+				9226236C23B1BF8400576140 /* PosterImagesRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -416,6 +432,8 @@
 		928589CA2384F03B0006DCF9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9226236823B1B1C800576140 /* Alertable.swift */,
+				9226236623B1A95D00576140 /* Observable.swift */,
 				928589CB2384F0570006DCF9 /* StoryboardInstantiable.swift */,
 				928589D52385498B0006DCF9 /* Extensions */,
 			);
@@ -611,6 +629,7 @@
 				92200C422387878500645070 /* UICollectionView+Pets24h.swift in Sources */,
 				9271C29123AA6F2C001D6072 /* Movie.swift in Sources */,
 				92737DAF23A8C46200E07726 /* HomeViewModel.swift in Sources */,
+				9226236D23B1BF8400576140 /* PosterImagesRepository.swift in Sources */,
 				9241DC0D23AB635800EBEA87 /* AppConfigurations.swift in Sources */,
 				927E023F23AA0AAE009DCB3A /* SearchMoviesUseCase.swift in Sources */,
 				928589D923854BD70006DCF9 /* UITableView+Pets24h.swift in Sources */,
@@ -620,11 +639,14 @@
 				9241DC0423AB2F3A00EBEA87 /* Endpoint.swift in Sources */,
 				92200C3F238785AE00645070 /* CarouselCollectionViewCell.swift in Sources */,
 				928589D2238525980006DCF9 /* TempViewController.swift in Sources */,
+				9226236723B1A95D00576140 /* Observable.swift in Sources */,
 				928589C42384E94B0006DCF9 /* HomeSceneDIContainer.swift in Sources */,
+				9226236B23B1BDCC00576140 /* PosterImagesRepositoryInterfaces.swift in Sources */,
 				928589CC2384F0570006DCF9 /* StoryboardInstantiable.swift in Sources */,
 				927E024A23AA130E009DCB3A /* Cancelable.swift in Sources */,
 				928589912384E1C70006DCF9 /* AppDelegate.swift in Sources */,
 				926AE2A2238B8268009E4303 /* HomeCategory.swift in Sources */,
+				924A1EDF23B0B5030094CC51 /* HomeCatagoryViewModel.swift in Sources */,
 				927E023C23AA06B5009DCB3A /* MovieQuery.swift in Sources */,
 				927E024723AA112B009DCB3A /* MoviesRepository.swift in Sources */,
 				927E024F23AA1467009DCB3A /* DataTransferService.swift in Sources */,
@@ -632,6 +654,8 @@
 				92E7EA592386772A00EE24D1 /* CategoryTableViewCell.swift in Sources */,
 				9241DC0923AB321900EBEA87 /* NetworkService.swift in Sources */,
 				928589C92384E9D80006DCF9 /* HomeViewController.swift in Sources */,
+				9226236923B1B1C800576140 /* Alertable.swift in Sources */,
+				924A1EE123B0B6C10094CC51 /* HomeMovieViewModel.swift in Sources */,
 				9241DC0B23AB540B00EBEA87 /* NetworkConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -38,12 +38,15 @@ final class DefaultNetworkService: NetworkService {
     
     func request(request: URLRequest, completion: @escaping (Result<Data?, NetworkError>) -> Void) -> Cancelable {
         let sessionDataTask = session.loadData(from: request) { [weak self] (data, response, requestError) in
+            if let response = response as? HTTPURLResponse, (400..<600).contains(response.statusCode) {
+                self?.logger.log(statusCode: response.statusCode)
+                completion(.failure(.errorStatusCode(statusCode: response.statusCode)))
+                return
+            }
+            
             if let requestError = requestError {
                 let error: NetworkError
-                if let response = response as? HTTPURLResponse, (400..<600).contains(response.statusCode) {
-                    error = .errorStatusCode(statusCode: response.statusCode)
-                    self?.logger.log(statusCode: response.statusCode)
-                } else if requestError._code == NSURLErrorNotConnectedToInternet {
+                if requestError._code == NSURLErrorNotConnectedToInternet {
                     error = .notConnected
                 } else if requestError._code == NSURLErrorCancelled {
                     error = .cancelled

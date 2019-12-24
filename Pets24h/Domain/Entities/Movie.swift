@@ -5,7 +5,7 @@
 //  Created by Vinh Huynh on 12/18/19.
 //
 
-import Foundation
+import Foundation.NSDate
 
 struct MoviesPage {
     let page: Int

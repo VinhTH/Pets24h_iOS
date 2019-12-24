@@ -11,52 +11,63 @@ protocol HomeViewModelInput {
     func viewDidLoad()
 }
 
-protocol HomeViewModel: HomeViewModelInput {}
+protocol HomeViewModelOutput {
+    var items: Observable<[HomeCatagoryViewModel]> { get }
+    var error: Observable<String> { get }
+}
+
+protocol HomeViewModel: HomeViewModelInput, HomeViewModelOutput {}
 
 final class DefaultHomeViewModel: HomeViewModel {
     
-    private let searchMoviesUseCase: SearchMoviesUseCase
+    // MARK: OUTPUT
+    let items: Observable<[HomeCatagoryViewModel]> = Observable([HomeCatagoryViewModel]())
+    let error: Observable<String> = Observable("")
     
-    init(searchMoviesUseCase: SearchMoviesUseCase) {
+    private let searchMoviesUseCase: SearchMoviesUseCase
+    private let posterImagesRepository: PosterImagesRepository
+    
+    init(searchMoviesUseCase: SearchMoviesUseCase,
+         posterImagesRepository: PosterImagesRepository) {
+        
         self.searchMoviesUseCase = searchMoviesUseCase
+        self.posterImagesRepository = posterImagesRepository
     }
 }
 
 // MARK: Func
 extension DefaultHomeViewModel {
     private func loadCategories() {
-        let actionMoviesRequest = SearchMoviesUseCaseRequestValue(query: MovieQuery(query: "Action"), page: 1)
-        let trendingMoviesRequest = SearchMoviesUseCaseRequestValue(query: MovieQuery(query: "Trending"), page: 1)
+        let categories = ["Action", "Romance", "Adventure", "Animation", "Drama", "Horror", "Music"]
         
-        var moviesPages: [MoviesPage] = []
+        var unsortedItems: [HomeCatagoryViewModel] = []
         let group = DispatchGroup()
-        group.enter()
-        searchMoviesUseCase.execute(requestValue: actionMoviesRequest) { result in
-            switch result {
-            case .success(let moviesPage):
-                moviesPages.append(moviesPage)
-                print("Get action movies success:", moviesPage.movies.count)
-            case .failure(let error):
-                print("Get action movies failed: ", error.localizedDescription)
+        
+        for category in categories {
+            group.enter()
+            let moviesRequest = SearchMoviesUseCaseRequestValue(query: MovieQuery(query: category), page: 1)
+            searchMoviesUseCase.execute(requestValue: moviesRequest) { [weak self] result in
+                
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let moviesPage):
+                    let movies = moviesPage.movies.map({ DefaultHomeMovieViewModel(movie: $0, posterImageRepository: self.posterImagesRepository) })
+                    unsortedItems.append(DefaultHomeCatagoryViewModel(title: category, movies: movies))
+                case .failure(let error):
+                    self.handleLoadingCategoryError(error, title: category)
+                }
+                group.leave()
             }
-            group.leave()
         }
         
-        group.enter()
-        searchMoviesUseCase.execute(requestValue: trendingMoviesRequest) { result in
-            switch result {
-            case .success(let moviesPage):
-                moviesPages.append(moviesPage)
-                print("Get trending movies success:", moviesPage.movies.count)
-            case .failure(let error):
-                print("Get trending movies failed: ", error.localizedDescription)
-            }
-            group.leave()
+        group.notify(queue: .main) { [weak self] in
+            self?.items.value = unsortedItems.sorted(by: { $0.title < $1.title })
         }
-        
-        group.notify(queue: .main) {
-            print("Load categories success:", moviesPages.count)
-        }
+    }
+    
+    private func handleLoadingCategoryError(_ error: Error, title: String) {
+        self.error.value = NSLocalizedString("Failed loading \(title) genre", comment: "")
     }
 }
 

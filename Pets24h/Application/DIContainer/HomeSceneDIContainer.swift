@@ -11,6 +11,7 @@ final class HomeSceneDIContainer {
     
     struct Dependencies {
         let apiDataTransferService: DataTransfer
+        let imageDataTransferService: DataTransfer
     }
     
     private let dependencies: Dependencies
@@ -24,7 +25,8 @@ final class HomeSceneDIContainer {
     }
     
     private func makeHomeViewModel() -> HomeViewModel {
-        return DefaultHomeViewModel(searchMoviesUseCase: makeSearchMoviesUseCase())
+        return DefaultHomeViewModel(searchMoviesUseCase: makeSearchMoviesUseCase(),
+                                    posterImagesRepository: makePosterImageRepository())
     }
     
     private func makeSearchMoviesUseCase() -> SearchMoviesUseCase {
@@ -33,5 +35,10 @@ final class HomeSceneDIContainer {
     
     private func makeMoviesRepository() -> MoviesRepository {
         return DefaultMoviesRepository(dataTransferService: dependencies.apiDataTransferService)
+    }
+    
+    private func makePosterImageRepository() -> PosterImagesRepository {
+        return DefaultPosterImagesRepository(dataTransferService: dependencies.imageDataTransferService,
+                                             imageNotFoundData: UIImage(named: "image_not_found")?.pngData())
     }
 }

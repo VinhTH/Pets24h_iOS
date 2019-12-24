@@ -16,40 +16,28 @@ class CategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var viewAllButton: UIButton!
     
-    private var category = HomeCategory() {
-        willSet {
-            titleLabel.text = newValue.title
-            subtitleLabel.text = newValue.subtitle
-            viewAllButton.isHidden = !newValue.isViewableAll
-            collectionView.reloadData()
-            gradientView.colors = newValue.colors.map({
-                UIColor(hex: $0).cgColor
-            })
-        }
-    }
-    
-    private var collectionViewLayout: UICollectionViewLayout?
+    private var viewModel: HomeCatagoryViewModel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCollectionView()
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        category = HomeCategory()
-    }
-    
     private func setupCollectionView() {
-        collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.register(cell: CarouselCollectionViewCell.self)
-        collectionView.reloadData()
-        collectionViewLayout = collectionView.collectionViewLayout
     }
     
-    func reloadCell(withCategory category: HomeCategory) {
-        self.category = category
+    func fill(with viewModel: HomeCatagoryViewModel) {
+        self.viewModel = viewModel
+        collectionView.reloadData()
+        viewAllButton.isHidden = false
+        titleLabel.text = viewModel.title
+        subtitleLabel.text = viewModel.subtitle
+        gradientView.colors = [0xFFFFFF, 0xF2F2F2].map({
+            UIColor(hex: $0).cgColor
+        })
     }
 }
 
@@ -57,7 +45,7 @@ class CategoryTableViewCell: UITableViewCell {
 extension CategoryTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return category.items.count
+        return viewModel.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -65,6 +53,7 @@ extension CategoryTableViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withType: CarouselCollectionViewCell.self, for: indexPath) as? CarouselCollectionViewCell else {
             fatalError("Unable to dequeue reusable cell \(CarouselCollectionViewCell.self)")
         }
+        cell.fill(with: viewModel.items[indexPath.row])
         return cell
     }
 }

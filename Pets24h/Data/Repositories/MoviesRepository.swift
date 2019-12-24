@@ -17,6 +17,6 @@ final class DefaultMoviesRepository: MoviesRepository {
     
     func moviesList(query: MovieQuery, page: Int, completion: @escaping (Result<MoviesPage, Error>) -> Void) -> Cancelable? {
         let endpoint = APIEndpoints.movies(query: query.query, page: page)
-        return dataTransferService.request(width: endpoint, completion: completion)
+        return dataTransferService.request(with: endpoint, completion: completion)
     }
 }

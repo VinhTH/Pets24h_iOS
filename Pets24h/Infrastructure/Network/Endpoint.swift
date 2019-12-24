@@ -47,7 +47,6 @@ extension Requestable {
             urlRequest.httpBody = encodeBody(bodyParameter: bodyParameters, bodyEncoding: bodyEncoding)
         }
         
-        urlRequest.timeoutInterval = 2
         urlRequest.httpMethod = method.rawValue
         urlRequest.allHTTPHeaderFields = allHeaders
         return urlRequest

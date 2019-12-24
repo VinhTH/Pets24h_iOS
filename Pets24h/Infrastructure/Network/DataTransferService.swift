@@ -14,8 +14,11 @@ enum DataTransferError: Error {
 }
 
 protocol DataTransfer {
-    func request<T: Decodable>(width endpoint: DataEndpoint<T>, completion: @escaping (Result<T, Error>) -> Void) -> Cancelable?
-    func request<T: Decodable>(width endpoint: DataEndpoint<T>, respondOnQueue: DispatchQueue, completion: @escaping (Result<T, Error>) -> Void) -> Cancelable?
+    func request<T: Decodable>(with endpoint: DataEndpoint<T>, completion: @escaping (Result<T, Error>) -> Void) -> Cancelable?
+    func request<T: Decodable>(with endpoint: DataEndpoint<T>, respondOnQueue: DispatchQueue, completion: @escaping (Result<T, Error>) -> Void) -> Cancelable?
+    
+    func request(with endpoint: DataEndpoint<Data>, completion: @escaping (Result<Data, Error>) -> Void) -> Cancelable?
+    func request(with endpoint: DataEndpoint<Data>, respondOnQueue: DispatchQueue, completion: @escaping (Result<Data, Error>) -> Void) -> Cancelable?
 }
 
 final class DefaultDataTransferService: DataTransfer {
@@ -26,11 +29,15 @@ final class DefaultDataTransferService: DataTransfer {
         self.networkService = networkService
     }
     
-    func request<T: Decodable>(width endpoint: DataEndpoint<T>, completion: @escaping (Result<T, Error>) -> Void) -> Cancelable? {
-        return request(width: endpoint, respondOnQueue: .main, completion: completion)
+    func request<T: Decodable>(with endpoint: DataEndpoint<T>, completion: @escaping (Result<T, Error>) -> Void) -> Cancelable? {
+        return request(with: endpoint, respondOnQueue: .main, completion: completion)
     }
     
-    func request<T: Decodable>(width endpoint: DataEndpoint<T>, respondOnQueue: DispatchQueue, completion: @escaping (Result<T, Error>) -> Void) -> Cancelable? {
+    func request(with endpoint: DataEndpoint<Data>, completion: @escaping (Result<Data, Error>) -> Void) -> Cancelable? {
+        return request(with: endpoint, respondOnQueue: .main, completion: completion)
+    }
+    
+    func request<T: Decodable>(with endpoint: DataEndpoint<T>, respondOnQueue: DispatchQueue, completion: @escaping (Result<T, Error>) -> Void) -> Cancelable? {
         
         return networkService.request(endpoint: endpoint) { result in
             switch result {
@@ -51,6 +58,27 @@ final class DefaultDataTransferService: DataTransfer {
                     respondOnQueue.async {
                         completion(.failure(DataTransferError.parsingJSON))
                     }
+                }
+            case .failure(let error):
+                respondOnQueue.async {
+                    completion(.failure(DataTransferError.networkFailure(error)))
+                }
+            }
+        }
+    }
+    
+    func request(with endpoint: DataEndpoint<Data>, respondOnQueue: DispatchQueue, completion: @escaping (Result<Data, Error>) -> Void) -> Cancelable? {
+        return networkService.request(endpoint: endpoint) { result in
+            switch result {
+            case .success(let data):
+                guard let data = data else {
+                    respondOnQueue.async {
+                        completion(.failure(DataTransferError.noResponse))
+                    }
+                    return
+                }
+                respondOnQueue.async {
+                    completion(.success(data))
                 }
             case .failure(let error):
                 respondOnQueue.async {

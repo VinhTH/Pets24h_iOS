@@ -5,7 +5,7 @@
 //  Created by Vinh Huynh on 12/19/19.
 //
 
-import Foundation
+import Foundation.NSBundle
 
 final class AppConfigurations {
     lazy var apiKey: String = {

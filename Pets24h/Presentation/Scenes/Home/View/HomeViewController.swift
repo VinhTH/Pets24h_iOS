@@ -8,13 +8,11 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, StoryboardInstantiable {
+class HomeViewController: UIViewController, StoryboardInstantiable, Alertable {
     
     @IBOutlet weak var tableView: UITableView!
     
     private let horizontalPadding: CGFloat = 36
-    
-    lazy var categories: [HomeCategory] = HomeViewController.testData
     
     private(set) var viewModel: HomeViewModel!
     
@@ -31,6 +29,7 @@ class HomeViewController: UIViewController, StoryboardInstantiable {
         setupTableView()
         setupNavigationBar()
         
+        bind(to: viewModel)
         viewModel.viewDidLoad()
     }
     
@@ -52,21 +51,38 @@ class HomeViewController: UIViewController, StoryboardInstantiable {
         }        
         navigationController?.navigationBar.makeLargeNavigationBar(button)
     }
+    
+    private func bind(to viewModel: HomeViewModel) {
+        viewModel.items.observer(on: self) { [weak self] categories in
+            self?.reloadTableView()
+        }
+        viewModel.error.observer(on: self) { [weak self] error in
+            self?.showError(error)
+        }
+    }
+    
+    private func reloadTableView() {
+        tableView.reloadData()
+    }
+    
+    private func showError(_ error: String) {
+        showAlert(message: error)
+    }
 }
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return viewModel.items.value.count
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let category = categories[indexPath.row]
+        
         guard let cell = tableView.dequeueReusableCell(withType: CategoryTableViewCell.self, for: indexPath) as? CategoryTableViewCell else {
             fatalError("Unable to dequeue reusable cell \(CategoryTableViewCell.self)")
         }
-        cell.reloadCell(withCategory: category)
+        cell.fill(with: viewModel.items.value[indexPath.row])
         return cell
     }
 }
@@ -74,6 +90,7 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
+        
         let tempVC = TempViewController.create()
         navigationController?.pushViewController(tempVC, animated: true)
     }
