@@ -7,22 +7,40 @@
 
 import Foundation
 
+enum HomeViewModelRoute {
+    case initial
+    case showMovieDetail(title: String)
+}
+
 protocol HomeViewModelInput {
     func viewDidLoad()
+    func didSelect(movie: HomeMovieViewModel)
 }
 
 protocol HomeViewModelOutput {
-    var items: Observable<[HomeCatagoryViewModel]> { get }
     var error: Observable<String> { get }
+    var route: Observable<HomeViewModelRoute> { get }
+    var items: Observable<[HomeCatagoryViewModel]> { get }
 }
 
 protocol HomeViewModel: HomeViewModelInput, HomeViewModelOutput {}
 
 final class DefaultHomeViewModel: HomeViewModel {
     
+    private lazy var categories = [
+        "Action",
+        "Romance",
+        "Adventure",
+        "Animation",
+        "Drama",
+        "Horror",
+        "Music"
+    ]
+    
     // MARK: OUTPUT
-    let items: Observable<[HomeCatagoryViewModel]> = Observable([HomeCatagoryViewModel]())
     let error: Observable<String> = Observable("")
+    let route: Observable<HomeViewModelRoute> = Observable(.initial)
+    let items: Observable<[HomeCatagoryViewModel]> = Observable([HomeCatagoryViewModel]())
     
     private let searchMoviesUseCase: SearchMoviesUseCase
     private let posterImagesRepository: PosterImagesRepository
@@ -38,8 +56,6 @@ final class DefaultHomeViewModel: HomeViewModel {
 // MARK: Func
 extension DefaultHomeViewModel {
     private func loadCategories() {
-        let categories = ["Action", "Romance", "Adventure", "Animation", "Drama", "Horror", "Music"]
-        
         var unsortedItems: [HomeCatagoryViewModel] = []
         let group = DispatchGroup()
         
@@ -47,13 +63,14 @@ extension DefaultHomeViewModel {
             group.enter()
             let moviesRequest = SearchMoviesUseCaseRequestValue(query: MovieQuery(query: category), page: 1)
             searchMoviesUseCase.execute(requestValue: moviesRequest) { [weak self] result in
-                
                 guard let self = self else { return }
-                
                 switch result {
                 case .success(let moviesPage):
                     let movies = moviesPage.movies.map({ DefaultHomeMovieViewModel(movie: $0, posterImageRepository: self.posterImagesRepository) })
-                    unsortedItems.append(DefaultHomeCatagoryViewModel(title: category, movies: movies))
+                    let categoryViewModel = DefaultHomeCatagoryViewModel(title: category, movies: movies, selectBlock: { [weak self] movieViewModel in
+                        self?.didSelect(movie: movieViewModel)
+                    })
+                    unsortedItems.append(categoryViewModel)
                 case .failure(let error):
                     self.handleLoadingCategoryError(error, title: category)
                 }
@@ -75,5 +92,9 @@ extension DefaultHomeViewModel {
 extension DefaultHomeViewModel {
     func viewDidLoad() {
         loadCategories()
+    }
+    
+    func didSelect(movie: HomeMovieViewModel) {
+        route.value = .showMovieDetail(title: movie.title)
     }
 }

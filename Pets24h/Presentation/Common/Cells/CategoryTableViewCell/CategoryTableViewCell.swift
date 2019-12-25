@@ -59,11 +59,18 @@ extension CategoryTableViewCell: UICollectionViewDataSource {
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
-extension CategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension CategoryTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 115*16/9, height: 115)
+    }
+}
+
+// MARK: UICollectionViewDelegate
+extension CategoryTableViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelect(viewModel.items[indexPath.row])
     }
 }
 

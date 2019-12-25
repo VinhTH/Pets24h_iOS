@@ -21,7 +21,7 @@ final class HomeSceneDIContainer {
     }
     
     func makeHomeViewController() -> UIViewController {
-        return HomeViewController.create(with: makeHomeViewModel())
+        return HomeViewController.create(with: makeHomeViewModel(), viewControllerFactory: self)
     }
     
     private func makeHomeViewModel() -> HomeViewModel {
@@ -40,5 +40,11 @@ final class HomeSceneDIContainer {
     private func makePosterImageRepository() -> PosterImagesRepository {
         return DefaultPosterImagesRepository(dataTransferService: dependencies.imageDataTransferService,
                                              imageNotFoundData: UIImage(named: "image_not_found")?.pngData())
+    }
+}
+
+extension HomeSceneDIContainer: HomeViewControllerFactory {
+    func makeMovieDetailViewController(title: String) -> UIViewController {
+        return MovieDetailSceneDIContainer().makeMovieDetailViewController()
     }
 }

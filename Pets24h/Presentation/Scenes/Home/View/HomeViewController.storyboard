@@ -29,9 +29,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Dc8-cu-8vT" firstAttribute="top" secondItem="QWH-R2-9Ab" secondAttribute="top" id="4Eq-xm-FqD"/>
                             <constraint firstItem="XEl-LK-Ofz" firstAttribute="trailing" secondItem="Dc8-cu-8vT" secondAttribute="trailing" id="UGV-F5-Lgc"/>
                             <constraint firstItem="Dc8-cu-8vT" firstAttribute="leading" secondItem="XEl-LK-Ofz" secondAttribute="leading" id="VaA-Md-2Op"/>
+                            <constraint firstItem="Dc8-cu-8vT" firstAttribute="top" secondItem="QWH-R2-9Ab" secondAttribute="top" id="aBu-KH-Gre"/>
                             <constraint firstAttribute="bottom" secondItem="Dc8-cu-8vT" secondAttribute="bottom" id="efL-SU-V7Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XEl-LK-Ofz"/>

@@ -14,12 +14,16 @@ class HomeViewController: UIViewController, StoryboardInstantiable, Alertable {
     
     private let horizontalPadding: CGFloat = 36
     
-    private(set) var viewModel: HomeViewModel!
+    private var viewModel: HomeViewModel!
+    private var viewControllerFactory: HomeViewControllerFactory!
     
     // MARK: Static
-    final class func create(with viewModel: HomeViewModel) -> HomeViewController {
+    final class func create(with viewModel: HomeViewModel,
+                            viewControllerFactory: HomeViewControllerFactory) -> HomeViewController {
+        
         let view = HomeViewController.instantiateViewController()
         view.viewModel = viewModel
+        view.viewControllerFactory = viewControllerFactory
         return view
     }
     
@@ -59,6 +63,9 @@ class HomeViewController: UIViewController, StoryboardInstantiable, Alertable {
         viewModel.error.observer(on: self) { [weak self] error in
             self?.showError(error)
         }
+        viewModel.route.observer(on: self) { [weak self] route in
+            self?.handle(route)
+        }
     }
     
     private func reloadTableView() {
@@ -67,6 +74,15 @@ class HomeViewController: UIViewController, StoryboardInstantiable, Alertable {
     
     private func showError(_ error: String) {
         showAlert(message: error)
+    }
+    
+    private func handle(_ route: HomeViewModelRoute) {
+        switch route {
+        case .initial: break
+        case .showMovieDetail(let title):
+            let viewController = viewControllerFactory.makeMovieDetailViewController(title: title)
+            navigationController?.pushViewController(viewController, animated: true)
+        }
     }
 }
 
@@ -88,147 +104,9 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView,
-                   didSelectRowAt indexPath: IndexPath) {
-        
-        let tempVC = TempViewController.create()
-        navigationController?.pushViewController(tempVC, animated: true)
-    }
+    
 }
 
-extension HomeViewController {
-    static var testData: [HomeCategory] = [
-        HomeCategory(
-            id: "i1",
-            title: "Watch to Watch",
-            subtitle: "",
-            isViewableAll: true,
-            colors: [0xFAFAFA, 0xF2F2F2],
-            items: [
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-            ]
-        ),
-        HomeCategory(
-            id: "i2",
-            title: "Learn About the Apple TV App",
-            subtitle: "",
-            isViewableAll: false,
-            colors: [0xFFFFFF, 0xFAFAFA],
-            items: [
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-            ]
-        ),
-        HomeCategory(
-            id: "i3",
-            title: "Sports Dramas: Knockout Prices",
-            subtitle: "Score a winning deal with offers on these athletic flicks.",
-            isViewableAll: true,
-            colors: [0xFAFAFA, 0xF2F2F2],
-            items: [
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-            ]
-        ),
-        HomeCategory(
-            id: "i4",
-            title: "Watch the Apple Original",
-            subtitle: "",
-            isViewableAll: false,
-            colors: [0xFFFFFF, 0xFAFAFA],
-            items: [
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-            ]
-        ),
-        HomeCategory(
-            id: "i5",
-            title: "Iconic Moments: Limited-Time Prices",
-            subtitle: "Relive some of film's most-loved scenes with these classics",
-            isViewableAll: true,
-            colors: [0xFAFAFA, 0xF2F2F2],
-            items: [
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-            ]
-        ),
-        HomeCategory(
-            id: "6",
-            title: "Movies That Inspired TV: Hot Offers",
-            subtitle: "Movies so good they demanded a small-screen spin-off.",
-            isViewableAll: true,
-            colors: [0xFFFFFF, 0xF2F2F2],
-            items: [
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-            ]
-        ),
-        HomeCategory(
-            id: "i7",
-            title: "Exclusive Ofers",
-            subtitle: "",
-            isViewableAll: false,
-            colors: [0xFFFFFF, 0xF2F2F2],
-            items: [
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-            ]
-        ),
-        HomeCategory(
-            id: "i8",
-            title: "Editor's Choice",
-            subtitle: "",
-            isViewableAll: false,
-            colors: [0xFFFFFF, 0xF2F2F2],
-            items: [
-                CategoryItem(id: "i1", title: "Dora", thumb: ""),
-                CategoryItem(id: "i2", title: "Dora", thumb: ""),
-                CategoryItem(id: "i3", title: "Dora", thumb: ""),
-                CategoryItem(id: "i4", title: "Dora", thumb: ""),
-                CategoryItem(id: "i5", title: "Dora", thumb: ""),
-                CategoryItem(id: "i6", title: "Dora", thumb: ""),
-            ]
-        ),
-    ]
+protocol HomeViewControllerFactory {
+    func makeMovieDetailViewController(title: String) -> UIViewController
 }
