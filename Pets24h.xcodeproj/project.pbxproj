@@ -52,8 +52,6 @@
 		928589CC2384F0570006DCF9 /* StoryboardInstantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928589CB2384F0570006DCF9 /* StoryboardInstantiable.swift */; };
 		928589CE2384F24F0006DCF9 /* HomeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928589CD2384F24F0006DCF9 /* HomeViewController.storyboard */; };
 		928589D02384FC750006DCF9 /* UINavigationBar+CustomUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928589CF2384FC750006DCF9 /* UINavigationBar+CustomUI.swift */; };
-		928589D2238525980006DCF9 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928589D1238525980006DCF9 /* TempViewController.swift */; };
-		928589D4238525AB0006DCF9 /* TempViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928589D3238525AB0006DCF9 /* TempViewController.storyboard */; };
 		928589D7238549AE0006DCF9 /* UIColor+Pets24h.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928589D6238549AE0006DCF9 /* UIColor+Pets24h.swift */; };
 		928589D923854BD70006DCF9 /* UITableView+Pets24h.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928589D823854BD70006DCF9 /* UITableView+Pets24h.swift */; };
 		92E7EA522386459500EE24D1 /* UIControl+Pets24h.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EA512386459500EE24D1 /* UIControl+Pets24h.swift */; };
@@ -129,8 +127,6 @@
 		928589CB2384F0570006DCF9 /* StoryboardInstantiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInstantiable.swift; sourceTree = "<group>"; };
 		928589CD2384F24F0006DCF9 /* HomeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeViewController.storyboard; sourceTree = "<group>"; };
 		928589CF2384FC750006DCF9 /* UINavigationBar+CustomUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+CustomUI.swift"; sourceTree = "<group>"; };
-		928589D1238525980006DCF9 /* TempViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
-		928589D3238525AB0006DCF9 /* TempViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TempViewController.storyboard; sourceTree = "<group>"; };
 		928589D6238549AE0006DCF9 /* UIColor+Pets24h.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Pets24h.swift"; sourceTree = "<group>"; };
 		928589D823854BD70006DCF9 /* UITableView+Pets24h.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Pets24h.swift"; sourceTree = "<group>"; };
 		92E7EA512386459500EE24D1 /* UIControl+Pets24h.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Pets24h.swift"; sourceTree = "<group>"; };
@@ -279,8 +275,6 @@
 			children = (
 				928589C82384E9D80006DCF9 /* HomeViewController.swift */,
 				928589CD2384F24F0006DCF9 /* HomeViewController.storyboard */,
-				928589D1238525980006DCF9 /* TempViewController.swift */,
-				928589D3238525AB0006DCF9 /* TempViewController.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -631,7 +625,6 @@
 				92E7EA5A2386772A00EE24D1 /* CategoryTableViewCell.xib in Resources */,
 				9285899B2384E1C80006DCF9 /* LaunchScreen.storyboard in Resources */,
 				92200C40238785AE00645070 /* CarouselCollectionViewCell.xib in Resources */,
-				928589D4238525AB0006DCF9 /* TempViewController.storyboard in Resources */,
 				928589982384E1C80006DCF9 /* Assets.xcassets in Resources */,
 				926CBEB523B309D90063EC6A /* MovieDetailViewController.storyboard in Resources */,
 				928589CE2384F24F0006DCF9 /* HomeViewController.storyboard in Resources */,
@@ -677,7 +670,6 @@
 				927E024323AA103D009DCB3A /* MoviesRepositoryInterfaces.swift in Sources */,
 				9241DC0423AB2F3A00EBEA87 /* Endpoint.swift in Sources */,
 				92200C3F238785AE00645070 /* CarouselCollectionViewCell.swift in Sources */,
-				928589D2238525980006DCF9 /* TempViewController.swift in Sources */,
 				9226236723B1A95D00576140 /* Observable.swift in Sources */,
 				928589C42384E94B0006DCF9 /* HomeSceneDIContainer.swift in Sources */,
 				9226236B23B1BDCC00576140 /* PosterImagesRepositoryInterfaces.swift in Sources */,
